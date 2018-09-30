@@ -19,6 +19,8 @@ extension UIView {
         return it
     }
     
+   
+    
     /**
      Prepares the View for autolayout User
  */
@@ -53,3 +55,11 @@ extension UIView {
         }
     }
 }
+
+extension UIImage {
+    static var asterix: UIImage {
+        return UIImage(named: "asterix")!
+    }
+}
+
+

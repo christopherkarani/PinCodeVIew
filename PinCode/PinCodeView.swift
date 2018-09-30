@@ -10,20 +10,15 @@ import UIKit
 
 /// handles the pin code View
 class PinCodeView: UIView {
-    private let containerView: UIView
+    // MARK: Private Methods
     
-    // MARK: Public Methods
-    
-    public var stack : ViewsStack!
+    private var stack : ViewsStack!
 
     // MARK: Init
     init(container view: UIView) {
-        containerView = view
         super.init(frame: view.frame)
-        
         stack = ViewsStack(count: 4, asterixImage: UIImage(named: "asterisk")!)
         stack.layout(in: view)
-        testGesture()
         
     }
     

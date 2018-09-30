@@ -9,9 +9,38 @@
 import UIKit
 
 
+final class AstrixView : UIView {
+    private let asterix = UIImageView(image: UIImage(named: "asterix"))
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        addSubview(asterix)
+        asterix.autoLayout()
+        asterix.center()
+    }
+    
+    public func hide() {
+        asterix.isHidden = true
+    }
+    
+    public func show() {
+        asterix.isHidden = false
+    }
+    
+    public func image() -> UIImage {
+        let copy = asterix.copy() as! UIImage
+        return copy
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
 struct ViewsStack {
-    private var inputViews : [UIView] = []
+    private var inputViews : [AstrixView] = []
     internal var count : Int
+    private var hasViews: Bool = false
     private var image: UIImage
     
     public init(count: Int, asterixImage: UIImage) {
@@ -24,14 +53,12 @@ struct ViewsStack {
      create new `ViewStack` pin views ready for use
  */
     mutating fileprivate func create() {
-        for _ in 1...count {
-            let view = UIView.autoLayout()
-            let imageView = UIImageView(image: image)
-            view.addSubview(imageView)
-            imageView.autoLayout()
-            imageView.center()
+        for _ in 0...count {
+            let view = AstrixView.autoLayout()
             inputViews.append(view)
         }
+        
+        if inputViews.count == 0 { hasViews = false }
     }
 }
 
@@ -43,22 +70,23 @@ extension ViewsStack {
     /// show an asterix at a certain index
     /// - Parameter index: location in the inputs collection
     func hide(at index: Int) {
-        let subView = inputViews[index]
-        subView.subviews.first!.isHidden = true
+        guard hasViews else { return }
+        inputViews[index].hide()
     }
     
     /// show an asterix at a certain index
     /// - Parameter index: location in the inputs collection
     func show(at index: Int) {
-        let subView = inputViews[index]
-        subView.subviews.first!.isHidden = false
+        guard hasViews else { return }
+        inputViews[index].show()
     }
     
     
     /// Hides all astreix
     func clear() {
+        guard hasViews else { return }
         for view in inputViews {
-            view.subviews.first!.isHidden = true
+            view.asterix.isHidden = true
         }
     }
     
@@ -108,6 +136,11 @@ extension ViewsStack: Collection {
     public subscript(position: Int) -> UIView {
         return inputViews[position]
     }
+    
+    public subscript(imageView pos: Int) -> AstrixView {
+        let view = inputViews[pos]
+        return view.asterix
+    }
 }
 
 
@@ -138,6 +171,12 @@ extension ViewsStack {
         }
     }
     
+}
+
+extension UIView {
+    func firstSubview() -> UIImageView {
+        return subviews.first! as! UIImageView
+    }
 }
 
 

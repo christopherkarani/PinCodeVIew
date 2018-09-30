@@ -17,6 +17,7 @@
 		9E353BE12160476400E1F644 /* UIView_Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BE02160476400E1F644 /* UIView_Extensions.swift */; };
 		9E353BE32160A5E800E1F644 /* ViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BE22160A5E800E1F644 /* ViewStack.swift */; };
 		9E353BE42160A5E800E1F644 /* ViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BE22160A5E800E1F644 /* ViewStack.swift */; };
+		9E353BE72160D2A200E1F644 /* ViewStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BE52160D2A200E1F644 /* ViewStackTests.swift */; };
 		EC16ACB13EAAC5F026704AFF /* Pods_PinCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BEA3D16070D3EEDAEE454C /* Pods_PinCode.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		9E353BDE2160471400E1F644 /* PinCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinCodeView.swift; sourceTree = "<group>"; };
 		9E353BE02160476400E1F644 /* UIView_Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView_Extensions.swift; sourceTree = "<group>"; };
 		9E353BE22160A5E800E1F644 /* ViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStack.swift; sourceTree = "<group>"; };
+		9E353BE52160D2A200E1F644 /* ViewStackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStackTests.swift; sourceTree = "<group>"; };
 		B78173EFD825A99D7600D883 /* Pods-PinCodeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinCodeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PinCodeTests/Pods-PinCodeTests.release.xcconfig"; sourceTree = "<group>"; };
 		C3BEA3D16070D3EEDAEE454C /* Pods_PinCode.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PinCode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCE071D7A03D15F316414809 /* Pods-PinCode.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinCode.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinCode/Pods-PinCode.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				9E353BD2215FB88A00E1F644 /* PinCodeTests.swift */,
 				9E353BD4215FB88A00E1F644 /* Info.plist */,
+				9E353BE52160D2A200E1F644 /* ViewStackTests.swift */,
 			);
 			path = PinCodeTests;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			files = (
 				9E353BE42160A5E800E1F644 /* ViewStack.swift in Sources */,
 				9E353BD3215FB88A00E1F644 /* PinCodeTests.swift in Sources */,
+				9E353BE72160D2A200E1F644 /* ViewStackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
