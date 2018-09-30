@@ -121,8 +121,6 @@ extension  ViewsStack {
             $0.round($0.frame.width / 2)
         }
     }
-    
-
 }
 
 // Give us the access to collection methods
@@ -171,8 +169,7 @@ extension ViewsStack {
 
 
 //TODO
-// 1. allow differnt number of input views
-// 2. make subviews into a subSeequence
-// 3. draw for case four pin type and case six
+// [DONE] 1. allow differnt number of input views
+// [DONE] 2. draw for case four pin type and case six
 
 

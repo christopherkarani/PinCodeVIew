@@ -20,6 +20,8 @@
 		9E353BEC2160FAC200E1F644 /* AsterixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BEB2160FAC200E1F644 /* AsterixView.swift */; };
 		9E353BED2160FAC200E1F644 /* AsterixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BEB2160FAC200E1F644 /* AsterixView.swift */; };
 		9E353BF5216105A900E1F644 /* PinCodeTestsVV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E353BF4216105A900E1F644 /* PinCodeTestsVV.swift */; };
+		9E353C1B21613E0E00E1F644 /* PinCodeTests.xctest in Resources */ = {isa = PBXBuildFile; fileRef = 9E353BCE215FB88A00E1F644 /* PinCodeTests.xctest */; };
+		9E353C1C21613E1E00E1F644 /* PinCode.app in Resources */ = {isa = PBXBuildFile; fileRef = 9E353BBA215FB88800E1F644 /* PinCode.app */; };
 		EC16ACB13EAAC5F026704AFF /* Pods_PinCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3BEA3D16070D3EEDAEE454C /* Pods_PinCode.framework */; };
 /* End PBXBuildFile section */
 
@@ -301,6 +303,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E353C1C21613E1E00E1F644 /* PinCode.app in Resources */,
+				9E353C1B21613E0E00E1F644 /* PinCodeTests.xctest in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

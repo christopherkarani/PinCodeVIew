@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 final class AstrixView : UIView {
     private let asterix = UIImageView(image: UIImage.asterix)
     override init(frame: CGRect) {
@@ -15,6 +16,7 @@ final class AstrixView : UIView {
         addSubview(asterix)
         asterix.autoLayout()
         asterix.center()
+        
     }
     
     public func hide() {

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import NoStress
+@testable import PinCode
 
 
 class ViewStackTests: XCTestCase {
