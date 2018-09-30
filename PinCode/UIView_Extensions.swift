@@ -20,6 +20,13 @@ extension UIView {
     }
     
     /**
+     Prepares the View for autolayout User
+ */
+    func autoLayout() {
+        translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    /**
      Create and return a Random Color
      */
     func randomBackgroundColor() {
@@ -40,8 +47,8 @@ extension UIView {
             NSLayoutConstraint.activate([
                 centerXAnchor.constraint(equalTo: view.centerXAnchor),
                 centerYAnchor.constraint(equalTo: view.centerYAnchor),
-                view.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
-                view.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2)
+                widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1/2),
+                heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2)
                 ])
         }
     }
