@@ -100,34 +100,25 @@ extension  ViewsStack {
     }
     
     /// An algorith to layout pinView and its imageView subview
-    public func layout(in containerView: UIView) {
+    public func layout(in container: UIView) {
+        let stackView = UIStackView(arrangedSubviews: inputViews)
+        stackView.spacing = 12
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        container.addSubview( stackView)
+        stackView.autoLayout()
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            stackView.widthAnchor.constraint(equalTo: container.widthAnchor),
+            stackView.heightAnchor.constraint(equalTo: container.heightAnchor, multiplier: type.multiplier)
+            ])
+        stackView.backgroundColor = .yellow
+        container.layoutIfNeeded()
         
-        var lastView : UIView!
-        var anchor : NSLayoutXAxisAnchor!
-        //inputViews.forEach { $0.autoLayout(); $0.center() }
-        
-        /// Loop and prepeare the inputViews
-        for view in inputViews {
-            view.backgroundColor = .white
-            containerView.addSubview(view)
-            
-            // if is layout out the first view attach its anchor to the container view
-            anchor = view == inputViews.first! ? containerView.leftAnchor : lastView.rightAnchor
-            let constraints = [
-                view.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5),
-                view.leftAnchor.constraint(equalTo: anchor, constant: 12),
-                view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                view.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5)
-            ]
-            
-            NSLayoutConstraint.activate(constraints)
-            containerView.layoutIfNeeded()
-            view.round(view.frame.width / 2)
-            
-            
-            
-            lastView = view
-            lastView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.arrangedSubviews.forEach {
+            $0.backgroundColor = .white
+            $0.round($0.frame.width / 2)
         }
     }
     
@@ -155,6 +146,15 @@ extension ViewsStack {
     enum PinType: Int {
         case four = 4
         case six = 6
+    }
+}
+
+extension ViewsStack.PinType {
+    var multiplier: CGFloat {
+        switch self {
+        case .four: return 0.60
+        case .six: return 0.40
+        }
     }
 }
 // MARK: Subscripts

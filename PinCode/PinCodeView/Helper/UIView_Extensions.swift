@@ -18,6 +18,16 @@ public extension UIView {
         it.translatesAutoresizingMaskIntoConstraints = false
         return it
     }
+    
+    
+    /**
+     round the corners of the view
+     - Parameter radius: THe rasous at which to curve the conrer
+ */
+    public func round(_ radius: CGFloat) {
+        clipsToBounds = true
+        layer.cornerRadius = radius
+    }
 
    
     

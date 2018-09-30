@@ -30,11 +30,6 @@ final class AstrixView : UIView {
         return copy
     }
     
-    public func round(_ radius: CGFloat) {
-        clipsToBounds = true
-        layer.cornerRadius = radius
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -45,3 +40,5 @@ extension AstrixView {
         return asterix.isHidden
     }
 }
+
+
