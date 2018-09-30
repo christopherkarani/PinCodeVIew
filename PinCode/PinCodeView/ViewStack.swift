@@ -8,95 +8,55 @@
 
 import UIKit
 
-
-final class AstrixView : UIView {
-    private let asterix = UIImageView(image: UIImage.asterix)
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        addSubview(asterix)
-        asterix.autoLayout()
-        asterix.center()
-    }
-    
-    public func hide() {
-        asterix.isHidden = true
-    }
-    
-    public func show() {
-        asterix.isHidden = false
-    }
-    
-    public func imageView() -> UIImageView {
-        let copy = asterix.copy() as! UIImageView
-        return copy
-    }
-    
-    public func round(_ radius: CGFloat) {
-        self.layer.masksToBounds = true
-        self.layer.cornerRadius = radius
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
 struct ViewsStack {
+    /// the number of views expected for input
     private var inputViews : [AstrixView] = []
-    internal var count : Int
     private var hasViews: Bool = false
     private var image: UIImage
+    public var type : PinType
+    public lazy var pinCount = type.rawValue
     
     public init(type: PinType, asterixImage: UIImage) {
-        self.count = type.rawValue
         self.image = asterixImage
+        self.type = type
         create()
     }
     
     /**
      create new `ViewStack` pin views ready for use
- */
+     */
     mutating fileprivate func create() {
-        for _ in 0..<count {
+        for _ in 0..<pinCount {
             let view = AstrixView.autoLayout()
             inputViews.append(view)
         }
-        
-        if inputViews.count == 0 { hasViews = false }
     }
 }
 
-extension ViewsStack {
-    
-}
-
-extension ViewsStack {
-    /// show an asterix at a certain index
+extension  ViewsStack {
     /// - Parameter index: location in the inputs collection
-    func hide(at index: Int) {
-        guard hasViews else { return }
+    public func hide(at index: Int) {
+        guard inputViews.count > 0 else { return }
         inputViews[index].hide()
     }
     
     /// show an asterix at a certain index
     /// - Parameter index: location in the inputs collection
-    func show(at index: Int) {
-        guard hasViews else { return }
+    public func show(at index: Int) {
+        guard inputViews.count > 0 else { return }
         inputViews[index].show()
     }
     
-    
     /// Hides all astreix
-    func clear() {
-        guard hasViews else { return }
+    public func clear() {
+        guard inputViews.count > 0 else { return }
         for view in inputViews {
             view.hide()
         }
     }
     
     /// Show an Error
-    func error() {
+    public func error() {
         inputViews.forEach {
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.red.cgColor
@@ -106,7 +66,7 @@ extension ViewsStack {
     
     
     /// clear the effects of Error User Experiance
-    func clearError() {
+    public func clearError() {
         inputViews.forEach {
             $0.layer.borderWidth = 0
             $0.layer.borderColor = UIColor.clear.cgColor
@@ -115,44 +75,11 @@ extension ViewsStack {
     }
     
     // to do: add value for rounding based on half the views width or height
-    func roundInputView() {
+    private func roundInputView() {
         for view in inputViews {
             view.clipsToBounds = true
             view.layer.cornerRadius = view.frame.width / 2
         }
-    }
-}
-
-
-// Give us the access to collection methods
-extension ViewsStack: Collection {
-    var startIndex: Int {
-        return inputViews.startIndex
-    }
-    
-    var endIndex: Int {
-        return inputViews.endIndex
-    }
-    
-    func index(after i: Int) -> Int {
-        return inputViews.index(after: i)
-    }
-}
-// Only Supports 4 Pin and 6 Pin Passwords. becuase beyond that or below that is not adaquet
-extension ViewsStack {
-    enum PinType: Int {
-        case four = 4
-        case six = 6
-    }
-}
-// MARK: Subscripts
-extension ViewsStack {
-    /**
-     Get the  the `AsterixView` at this Index
-     - Parameter pos: The Index at which to retrieve the `AsterixView`
-     */
-    public subscript(position: Int) -> AstrixView {
-        return inputViews[position]
     }
     
     /**
@@ -171,43 +98,75 @@ extension ViewsStack {
     public subscript(imageView pos: Int) -> UIImageView? {
         return inputViews[pos].imageView()
     }
-}
-
-
-extension ViewsStack {
+    
     /// An algorith to layout pinView and its imageView subview
     public func layout(in containerView: UIView) {
+        
         var lastView : UIView!
         var anchor : NSLayoutXAxisAnchor!
         //inputViews.forEach { $0.autoLayout(); $0.center() }
         
         /// Loop and prepeare the inputViews
-        for view in self {
-            view.randomBackgroundColor()
+        for view in inputViews {
+            view.backgroundColor = .white
             containerView.addSubview(view)
             
             // if is layout out the first view attach its anchor to the container view
-            anchor = view == self.first! ? containerView.leftAnchor : lastView.rightAnchor
-            let width = view.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5)
-            NSLayoutConstraint.activate([
+            anchor = view == inputViews.first! ? containerView.leftAnchor : lastView.rightAnchor
+            let constraints = [
+                view.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5),
                 view.leftAnchor.constraint(equalTo: anchor, constant: 12),
                 view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                width,
                 view.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5)
-                ])
-            view.r
+            ]
+            
+            NSLayoutConstraint.activate(constraints)
+            containerView.layoutIfNeeded()
+            view.round(view.frame.width / 2)
+            
+            
             
             lastView = view
             lastView.translatesAutoresizingMaskIntoConstraints = false
         }
     }
     
+
 }
 
-extension UIView {
-    func firstSubview() -> UIImageView {
-        return subviews.first! as! UIImageView
+// Give us the access to collection methods
+extension ViewsStack: Collection {
+    var startIndex: Int {
+        return inputViews.startIndex
     }
+    
+    var endIndex: Int {
+        return inputViews.endIndex
+    }
+    
+    func index(after i: Int) -> Int {
+        return inputViews.index(after: i)
+    }
+}
+
+
+// Only Supports 4 Pin and 6 Pin Passwords. becuase beyond that or below that is not adaquet
+extension ViewsStack {
+    enum PinType: Int {
+        case four = 4
+        case six = 6
+    }
+}
+// MARK: Subscripts
+extension ViewsStack {
+    /**
+     Get the  the `AsterixView` at this Index
+     - Parameter pos: The Index at which to retrieve the `AsterixView`
+     */
+    public subscript(position: Int) -> AstrixView {
+        return inputViews[position]
+    }
+
 }
 
 

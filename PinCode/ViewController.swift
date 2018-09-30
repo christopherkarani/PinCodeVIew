@@ -8,41 +8,20 @@
 
 import UIKit
 
-extension Optional {
-    var isSafeOptional: Bool {
-        switch self {
-        case .none: return false
-        case .some: return true
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
 class ViewController: UIViewController {
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        
+        let pinView = PinCodeView(container: makeViewContainer())
+        view.addSubview(pinView)
         view.backgroundColor = .white
-
     }
 
-    func setup() {
-        _ = PinCodeView(container: makeViewContainer())
-    }
+    
     
     func makeViewContainer() -> UIView {
         let containerView = UIView.autoLayout()
-        containerView.backgroundColor = .white
+        containerView.backgroundColor = .lightGray
         view.addSubview(containerView)
         NSLayoutConstraint.activate([
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -54,5 +33,6 @@ class ViewController: UIViewController {
     }
 
 }
+
 // MARK: Collections
 

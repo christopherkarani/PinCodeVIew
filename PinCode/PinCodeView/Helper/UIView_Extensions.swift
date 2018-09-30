@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIView {
+public extension UIView {
     /**
      Initializes a UIView object read for autoLayout
      return : Self
@@ -18,7 +18,7 @@ extension UIView {
         it.translatesAutoresizingMaskIntoConstraints = false
         return it
     }
-    
+
    
     
     /**
@@ -56,7 +56,7 @@ extension UIView {
     }
 }
 
-extension UIImage {
+public extension UIImage {
     static var asterix: UIImage {
         return UIImage(named: "asterisk")!
     }

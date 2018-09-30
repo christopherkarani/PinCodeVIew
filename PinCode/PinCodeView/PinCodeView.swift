@@ -10,15 +10,14 @@ import UIKit
 
 /// handles the pin code View
 class PinCodeView: UIView {
-    // MARK: Private Methods
     
     private var stack : ViewsStack!
-
     // MARK: Init
     init(container view: UIView) {
         super.init(frame: view.frame)
-        stack = ViewsStack(type: .four, asterixImage: UIImage(named: "asterix") ?? UIImage())
+        stack = ViewsStack(type: .four, asterixImage: UIImage.asterix)
         stack.layout(in: view)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,6 +25,7 @@ class PinCodeView: UIView {
     }
     
 }
+
 
 
 // ToDO
