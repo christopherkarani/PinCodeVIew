@@ -58,7 +58,7 @@ extension UIView {
 
 extension UIImage {
     static var asterix: UIImage {
-        return UIImage(named: "asterix")!
+        return UIImage(named: "asterisk")!
     }
 }
 

@@ -17,9 +17,8 @@ class PinCodeView: UIView {
     // MARK: Init
     init(container view: UIView) {
         super.init(frame: view.frame)
-        stack = ViewsStack(count: 4, asterixImage: UIImage(named: "asterisk")!)
+        stack = ViewsStack(type: .four, asterixImage: UIImage(named: "asterix") ?? UIImage())
         stack.layout(in: view)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

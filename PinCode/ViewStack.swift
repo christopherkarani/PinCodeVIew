@@ -10,7 +10,7 @@ import UIKit
 
 
 final class AstrixView : UIView {
-    private let asterix = UIImageView(image: UIImage(named: "asterix"))
+    private let asterix = UIImageView(image: UIImage.asterix)
     override init(frame: CGRect) {
         super.init(frame: .zero)
         addSubview(asterix)
@@ -26,9 +26,14 @@ final class AstrixView : UIView {
         asterix.isHidden = false
     }
     
-    public func image() -> UIImage {
-        let copy = asterix.copy() as! UIImage
+    public func imageView() -> UIImageView {
+        let copy = asterix.copy() as! UIImageView
         return copy
+    }
+    
+    public func round(_ radius: CGFloat) {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = radius
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,8 +48,8 @@ struct ViewsStack {
     private var hasViews: Bool = false
     private var image: UIImage
     
-    public init(count: Int, asterixImage: UIImage) {
-        self.count = count
+    public init(type: PinType, asterixImage: UIImage) {
+        self.count = type.rawValue
         self.image = asterixImage
         create()
     }
@@ -53,7 +58,7 @@ struct ViewsStack {
      create new `ViewStack` pin views ready for use
  */
     mutating fileprivate func create() {
-        for _ in 0...count {
+        for _ in 0..<count {
             let view = AstrixView.autoLayout()
             inputViews.append(view)
         }
@@ -86,7 +91,7 @@ extension ViewsStack {
     func clear() {
         guard hasViews else { return }
         for view in inputViews {
-            view.asterix.isHidden = true
+            view.hide()
         }
     }
     
@@ -132,14 +137,39 @@ extension ViewsStack: Collection {
     func index(after i: Int) -> Int {
         return inputViews.index(after: i)
     }
-    
-    public subscript(position: Int) -> UIView {
+}
+// Only Supports 4 Pin and 6 Pin Passwords. becuase beyond that or below that is not adaquet
+extension ViewsStack {
+    enum PinType: Int {
+        case four = 4
+        case six = 6
+    }
+}
+// MARK: Subscripts
+extension ViewsStack {
+    /**
+     Get the  the `AsterixView` at this Index
+     - Parameter pos: The Index at which to retrieve the `AsterixView`
+     */
+    public subscript(position: Int) -> AstrixView {
         return inputViews[position]
     }
     
-    public subscript(imageView pos: Int) -> AstrixView {
-        let view = inputViews[pos]
-        return view.asterix
+    /**
+     Get the `UImage` belonging to the `AsterixView` at this Index
+     - Parameter pos: The Index at which to retrieve the `UImage`
+     */
+    public subscript(image pos: Int) -> UIImage? {
+        let imageView = inputViews[pos].imageView()
+        return imageView.image
+    }
+    
+    /**
+     Get the `UIImageView` belonging to the `AsterixView` at this Index
+     - Parameter pos: The Index at which to retrieve the `UImageview`
+     */
+    public subscript(imageView pos: Int) -> UIImageView? {
+        return inputViews[pos].imageView()
     }
 }
 
@@ -158,13 +188,14 @@ extension ViewsStack {
             
             // if is layout out the first view attach its anchor to the container view
             anchor = view == self.first! ? containerView.leftAnchor : lastView.rightAnchor
-            
+            let width = view.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5)
             NSLayoutConstraint.activate([
                 view.leftAnchor.constraint(equalTo: anchor, constant: 12),
                 view.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                view.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5),
+                width,
                 view.heightAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 1/5)
                 ])
+            view.r
             
             lastView = view
             lastView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,5 +214,6 @@ extension UIView {
 //TODO
 // 1. allow differnt number of input views
 // 2. make subviews into a subSeequence
+// 3. draw for case four pin type and case six
 
 
